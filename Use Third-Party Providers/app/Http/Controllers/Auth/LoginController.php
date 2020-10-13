@@ -13,9 +13,9 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
@@ -23,29 +23,30 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
-        $githubUser = Socialite::driver('github')->user();
-        // dd($githubUser);
+        $socialiteUser = Socialite::driver($provider)->user();
+        // dd($socialiteUse);
 
         $user = User::firstOrCreate(
             [
-                'provider_id' => $githubUser->getId(),
+                'provider' => $provider,
+                'provider_id' => $socialiteUser->getId(),
             ],
             [
-                'name' => $githubUser->getName(),
-                'email' => $githubUser->getEmail(),
+                'name' => $socialiteUse->getName(),
+                'email' => $socialiteUse->getEmail(),
             ],
         );
 
-        // $user = User::where('provider_id', $githubUser->getId())->first();
+        // $user = User::where('provider_id', $socialiteUse->getId())->first();
 
         // // Create a new user in our database
         // if(! $user){
         //     $user = User::create([
-        //         'email' => $githubUser->getEmail(),
-        //         'name' => $githubUser->getName(),
-        //         'provider_id' => $githubUser->getId(),
+        //         'email' => $socialiteUse->getEmail(),
+        //         'name' => $socialiteUse->getName(),
+        //         'provider_id' => $socialiteUse->getId(),
         //     ]);
         // }
         // dd($user);

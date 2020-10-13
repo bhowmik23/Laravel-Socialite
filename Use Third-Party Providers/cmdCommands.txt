@@ -4,3 +4,5 @@
 
 
 >composer require laravel/socialite
+
+>composer require socialiteproviders/twitch
