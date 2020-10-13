@@ -1,0 +1,6 @@
+>laravel new LogInWithGitHub --jet --stack=livewire
+>cd LogInWithGitHub
+>npm install && npm run dev
+
+
+>composer require laravel/socialite
